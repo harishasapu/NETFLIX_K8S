@@ -52,7 +52,7 @@ pipeline{
         stage("Docker Build & Push"){
             steps{
                 script{
-                   withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker'){
+                   withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker'){   
                        sh "docker build --build-arg TMDB_V3_API_KEY=7298fa10b3dcc456768039a9ad9786a4 -t netflix ."
                        sh "docker tag netflix harishasapu/netflix:latest "
                        sh "docker push harishasapu/netflix:latest "
@@ -67,7 +67,7 @@ pipeline{
         }
         stage('Deploy to container'){
             steps{
-                sh 'docker run -d --name netflix -p 8081:80 harishasapu/netflix:latest'
+                 sh 'docker run -d --name netflix -p 9091:80 harishasapu/netflix:latest'
             }
         }
         stage('Deploy to kubernets'){
